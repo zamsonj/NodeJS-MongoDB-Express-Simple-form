@@ -1,0 +1,40 @@
+<% include partials/header %>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h3>New User Registration</h3>
+			<form method="POST" action="/users/add">
+				<label>First Name</label><br>
+				<input type="text" name="first_name"><br>
+				<label>Last Name</label><br>
+				<input type="text" name="last_name"><br>
+				<label>Email</label><br>
+				<input type="text" name="email"><br><br>
+				<input type="submit" value="Submit">	
+			</form>
+
+			<% if(errors){ %>
+				<% errors.forEach(function(error){ %>
+					<p><%= error.msg %></p>
+				<% }) %>
+			<% } %>
+		</div>
+		<div class="col">
+			<% if(users){ %>
+				<h3><%= title %></h3>
+				<table border=1>
+					<tr><th>Name</th><th>Email</th><th>Action</th></tr>
+					<% users.forEach(function(user){ %>
+						<tr>
+							<td><%= user.first_name +" "+ user.last_name %></td>
+							<td><%= user.email %></td>
+							<td><a href="#" class="deleteBtn" data-id="<%= user._id %>">Delete</a></td>
+						</tr>
+					<% }) %>
+					
+				</table>
+			<% } %>
+		</div>
+	</div>
+</div>
+<% include partials/footer %>
