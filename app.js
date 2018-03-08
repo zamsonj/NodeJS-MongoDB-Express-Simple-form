@@ -19,9 +19,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 //Here goes the static content's path like css, jQuery, etc
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Global
+//Global variables
 app.use(function(req, res, next){
 	res.locals.errors = null;
+	res.locals.users = null;
 	next();
 })
 //middleware for express-validator
@@ -60,11 +61,9 @@ app.post('/users/add', function(req, res){
 	req.checkBody('email', 'Email is Required').notEmpty();
 	var errors = req.validationErrors();
 	if(errors){
-		res.render("index", {
-			title: "Registered Users",
-			users: users,
-			errors: errors
-		});
+		console.log(errors);
+		
+		res.redirect('/');
 	}else{		
 		var newUser = {
 			first_name : req.body.first_name,
